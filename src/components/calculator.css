@@ -109,3 +109,127 @@
   grid-column: span 2;
 }
 
+.calculator-container {
+  display: flex;
+  gap: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.history-panel {
+  flex: 1;
+  background: #34495e;
+  border-radius: 15px;
+  padding: 20px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.history-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #ecf0f1;
+}
+
+.clear-history-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clear-history-btn:hover {
+  background: #c0392b;
+}
+
+.empty-history {
+  color: #95a5a6;
+  text-align: center;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: #2c3e50;
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: #7f8c8d;
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
+}
+
+.history-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-left: 3px solid #3498db;
+}
+
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.history-calculation {
+  color: #ecf0f1;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-result {
+  color: #2ecc71;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.history-time {
+  color: #bdc3c7;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+/* Responsive design for calculator container */
+@media (max-width: 768px) {
+  .calculator-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .history-panel {
+    max-height: 300px;
+  }
+}

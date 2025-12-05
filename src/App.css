@@ -53,3 +53,17 @@ h1 {
   margin: 5px 0;
 }
 
+.app-container {
+  max-width: 900px; /* Increased from 400px */
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure the calculator fits */
+.calculator {
+  flex: 1;
+  min-width: 300px;
+}
