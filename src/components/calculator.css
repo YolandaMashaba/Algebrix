@@ -1,0 +1,111 @@
+/* components/Calculator.css */
+.calculator {
+  background: #2c3e50;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.display {
+  background: #1a252f;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  word-break: break-all;
+}
+
+.previous-operation {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  min-height: 20px;
+  opacity: 0.8;
+}
+
+.current-input {
+  color: #ecf0f1;
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 10px 0;
+}
+
+.result {
+  color: #3498db;
+  font-size: 1.5rem;
+  font-weight: 500;
+  min-height: 30px;
+}
+
+.buttons {
+  display: grid;
+  grid-gap: 12px;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 12px;
+}
+
+.button-row:last-child {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.button {
+  border: none;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #34495e;
+  user-select: none;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button.operator {
+  background: #3498db;
+}
+
+.button.operator:hover {
+  background: #2980b9;
+}
+
+.button.equals {
+  background: #2ecc71;
+  grid-column: span 2;
+}
+
+.button.equals:hover {
+  background: #27ae60;
+}
+
+.button.clear {
+  background: #e74c3c;
+}
+
+.button.clear:hover {
+  background: #c0392b;
+}
+
+.button.zero {
+  grid-column: span 2;
+}
+
