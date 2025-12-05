@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./calculator.css";
 
 const Calculator = () => {
@@ -7,24 +7,49 @@ const Calculator = () => {
   const [previousResult, setPreviousResult] = useState('');
   const [history, setHistory] = useState([]);
 
+  //Load history from localStorage when component mounts
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('calculatorHistory');
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch (error) {
+        console.error('Failed to load history:', error);
+        localStorage.removeItem('calculatorHistory');
+      }
+    }
+  }, []);
+
+  //Save history to localStorage whenever it changes
+  useEffect(() => {
+    if (history.length > 0) {
+      localStorage.setItem('calculatorHistory', JSON.stringify(history));
+    } else {
+      localStorage.removeItem('calculatorHistory');
+    }
+  }, [history]);
+
   const handleClick = (value) => {
     if (value === '=') {
       try {
-
+        // eslint-disable-next-line no-eval
         const evalResult = eval(input);
         setPreviousResult(input);
         setResult(evalResult);
         setInput(evalResult.toString());
         
         // Add to history
+        const newHistoryItem = { 
+          calculation: input, 
+          result: evalResult,
+          timestamp: new Date().toLocaleTimeString(),
+          date: new Date().toLocaleDateString() // Added date for better tracking
+        };
+        
         setHistory(prev => [
-          ...prev,
-          { 
-            calculation: input, 
-            result: evalResult,
-            timestamp: new Date().toLocaleTimeString()
-          }
-        ].slice(-5)); // Keep only last 5 calculations
+          newHistoryItem,
+          ...prev.slice(0, 9) // Keep only last 10 calculations
+        ]);
       } catch {
         setResult('Error');
       }
@@ -62,6 +87,44 @@ const Calculator = () => {
 
   const handleClearHistory = () => {
     setHistory([]);
+    //Also clear from localStorage
+    localStorage.removeItem('calculatorHistory');
+  };
+
+  //Export history as JSON
+  const handleExportHistory = () => {
+    const dataStr = JSON.stringify(history, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'calculator-history.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  //Import history from JSON
+  const handleImportHistory = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedHistory = JSON.parse(e.target.result);
+        if (Array.isArray(importedHistory)) {
+          setHistory(importedHistory.slice(0, 10)); // Limit to 10 items
+          alert('History imported successfully!');
+        } else {
+          alert('Invalid history file format.');
+        }
+      } catch (error) {
+        alert('Failed to import history: ' + error.message);
+      }
+    };
+    reader.readAsText(file);
   };
 
   const buttons = [
@@ -105,24 +168,54 @@ const Calculator = () => {
         </div>
       </div>
       
-      {/* History Panel */}
+      {/* Updated History Panel with Import/Export */}
       <div className="history-panel">
         <div className="history-header">
           <h3>History</h3>
-          {history.length > 0 && (
-            <button 
-              className="clear-history-btn" 
-              onClick={handleClearHistory} 
-            >
-              Clear
-            </button>
-          )}
+          <div className="history-controls">
+            {history.length > 0 && (
+              <>
+                <button 
+                  className="history-control-btn export-btn"
+                  onClick={handleExportHistory}
+                  title="Export history as JSON"
+                >
+                  Export
+                </button>
+                <label 
+                  className="history-control-btn import-btn"
+                  title="Import history from JSON"
+                >
+                  Import
+                  <input
+                    type="file"
+                    accept=".json"
+                    onChange={handleImportHistory}
+                    style={{ display: 'none' }}
+                  />
+                </label>
+                <button 
+                  className="history-control-btn clear-btn"
+                  onClick={handleClearHistory}
+                  title="Clear all history"
+                >
+                  Clear
+                </button>
+              </>
+            )}
+          </div>
         </div>
+        
         {history.length === 0 ? (
-          <div className="empty-history">No calculations yet</div>
+          <div className="empty-history">
+            <p>No calculations yet</p>
+            <p className="storage-info">
+              Calculations will be saved automatically
+            </p>
+          </div>
         ) : (
           <div className="history-list">
-            {history.slice().reverse().map((item, index) => (
+            {history.map((item, index) => (
               <div 
                 key={index} 
                 className="history-item"
@@ -131,11 +224,33 @@ const Calculator = () => {
               >
                 <div className="history-calculation">{item.calculation}</div>
                 <div className="history-result">= {item.result}</div>
-                <div className="history-time">{item.timestamp}</div>
+                <div className="history-meta">
+                  <span className="history-date">{item.date}</span>
+                  <span className="history-time">{item.timestamp}</span>
+                </div>
               </div>
             ))}
           </div>
         )}
+        
+        {/* Storage Status Indicator */}
+        <div className="storage-status">
+          <div className="storage-indicator">
+            <div className="storage-dot"></div>
+            <span className="storage-text">
+              {history.length > 0 
+                ? `Saved ${history.length} calculation${history.length === 1 ? '' : 's'}`
+                : 'No saved calculations'}
+            </span>
+          </div>
+          <button 
+            className="storage-help"
+            onClick={() => alert('Your calculations are automatically saved in your browser. They will persist even after closing the browser.')}
+            title="About local storage"
+          >
+            ?
+          </button>
+        </div>
       </div>
     </div>
   );

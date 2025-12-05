@@ -233,3 +233,153 @@
     max-height: 300px;
   }
 }
+
+.history-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.history-control-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.export-btn:hover {
+  background: #3498db;
+  border-color: #3498db;
+}
+
+.import-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.import-btn:hover {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.clear-btn:hover {
+  background: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.7rem;
+}
+
+.history-date {
+  color: #bdc3c7;
+}
+
+.history-time {
+  color: #95a5a6;
+}
+
+.empty-history .storage-info {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-top: 10px;
+  font-style: normal;
+}
+
+/* Storage Status Indicator */
+.storage-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.storage-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.storage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2ecc71;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.storage-text {
+  color: #ecf0f1;
+  font-size: 0.8rem;
+}
+
+.storage-help {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  font-size: 0.8rem;
+  cursor: help;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.storage-help:hover {
+  background: #3498db;
+}
+
+/* Enhanced History Items */
+.history-item {
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.history-item:hover {
+  transform: translateX(5px);
+}
+
+.history-item::before {
+  content: '↻';
+  position: absolute;
+  left: -20px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #3498db;
+}
+
+.history-item:hover::before {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .history-controls {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  .history-control-btn {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+}
