@@ -1,16 +1,24 @@
-# React + Vite
+Algebrix - React Calculator
+A modern, feature-rich calculator web application built with React.js and Vite. This calculator combines sleek design with powerful functionality.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features
+1. Core Calculator Functions
+- Basic Operations: Addition, subtraction, multiplication, division
 
-Currently, two official plugins are available:
+- Advanced Features: Decimal operations, sign toggle (±), clear (C), clear entry (CE)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Real-time Display: Shows current input, previous operation, and results
 
-## React Compiler
+2. Calculation History
+- Track last 10 calculations with timestamps
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Click to reuse any previous calculation
 
-## Expanding the ESLint configuration
+- Clear history with one click
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. Local Storage Integration
+- Automatic save of calculation history
+
+- Persists between browser sessions
+
+- Export/import history as JSON files
